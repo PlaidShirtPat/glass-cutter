@@ -1,0 +1,28 @@
+body{
+  display: flex;
+  flex-wrap: row wrap;
+  font-family: 'Lucida Console', Monaco, monospace;
+}
+
+#inputs-col{
+  flex-basis: 200px;
+}
+
+#inputs-col input{
+  margin-bottom: 10px;
+  width: 50px;
+}
+
+#inputs-col label:after{
+  content: '\A';
+  white-space: pre;
+
+}
+
+#canvas-col{
+ flex-grow: 1;
+}
+
+#outputs-col{
+  flex-basis: 200px;
+}

@@ -1,6 +1,8 @@
 <html>
 
   <head>
+    <script type="text/javascript" src="jquery-1.6.js"></script>
+    <script type="text/javascript" src="packer.growing.js"></script>
     <script type="text/javascript" src="rectangle-sizer.js"></script>
     <link rel="stylesheet" href="rectangle-sizer.css">
   </head>
@@ -24,6 +26,8 @@
       <label>Rectangle 6</label>
       <input placeholder="W" id="rectangle-w-6" value="18"/>
       <input placeholder="H" id="rectangle-h-6" value="18"/>
+      <br>
+      <button id="calculate">Calculate</button>
     </div>
 
     <div id="canvas-col">
@@ -33,10 +37,10 @@
 
     <div id="outputs-col">
       <label>Width:</label>
-      <label>20</label>
+      <label id="width-result"></label>
       <br/>
       <label>Height:</label>
-      <label>20</label>
+      <label id="height-result"></label>
     </div>
   </body>
 

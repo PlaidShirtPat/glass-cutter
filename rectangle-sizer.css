@@ -16,7 +16,9 @@ body{
 #inputs-col label:after{
   content: '\A';
   white-space: pre;
+}
 
+#inputs-col #calculate{
 }
 
 #canvas-col{

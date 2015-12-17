@@ -27,12 +27,14 @@ var calcRectApp = function(){
     }
     rectangles.sort(Rectangle.prototype.compareFunction);
 
-    var packer = new GrowingPacker();
-    // var packer = new Packer(72, 36);
+    // var packer = new GrowingPacker();
+    var packer = new Packer(48, 100);
     packer.fit(rectangles);
 
     var outputCanvas = document.getElementById("output-canvas");
     var outputContext = outputCanvas.getContext("2d");
+    outputContext.canvas.width = parseInt(window.getComputedStyle(document.getElementById('canvas-col')).width);
+    outputContext.canvas.height = 500;
     var sizeMod = 4;
 
     var containerHeight = null;

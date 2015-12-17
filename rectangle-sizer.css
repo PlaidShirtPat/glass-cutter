@@ -25,6 +25,9 @@ body{
  flex-grow: 1;
 }
 
+#output-canvas{
+}
+
 #outputs-col{
   flex-basis: 200px;
 }

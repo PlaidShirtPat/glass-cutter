@@ -22,12 +22,13 @@ var calcRectApp = function(){
     for(i=0; i<6; i++){
       var width = parseInt(document.getElementById("rectangle-w-"+(i+1)).value);
       var height = parseInt(document.getElementById("rectangle-h-"+(i+1)).value);
-      rectangles.push(new Rectangle(width, height));
+      if(width > 0 && height > 0)
+        rectangles.push(new Rectangle(width, height));
     }
     rectangles.sort(Rectangle.prototype.compareFunction);
 
-    // var packer = new GrowingPacker();
-    var packer = new Packer(72, 36);
+    var packer = new GrowingPacker();
+    // var packer = new Packer(72, 36);
     packer.fit(rectangles);
 
     var outputCanvas = document.getElementById("output-canvas");
@@ -36,6 +37,9 @@ var calcRectApp = function(){
 
     var containerHeight = null;
     var containerWidth = null;
+
+    //clear canvas
+    outputContext.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
 
     for(var n = 0 ; n < rectangles.length ; n++) {
       var block = rectangles[n];
@@ -55,11 +59,11 @@ var calcRectApp = function(){
 
         
         //check
-        if(containerHeight == null || (block.fit.x + block.h) > containerHeight)
-          containerHeight = block.fit.x + block.h;
+        if(containerHeight == null || (block.fit.y + block.h) > containerHeight)
+          containerHeight = block.fit.y + block.h;
 
-        if(containerWidth == null || (block.fit.y + block.w) > containerWidth)
-          containerWidth = block.fit.y + block.w;
+        if(containerWidth == null || (block.fit.x + block.w) > containerWidth)
+          containerWidth = block.fit.x + block.w;
       }
     }
 

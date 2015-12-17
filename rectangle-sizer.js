@@ -19,16 +19,32 @@ var calcRectApp = function(){
   var calculateRectangles = function(){
     var rectangles = [];
 
-    for(i=0; i<6; i++){
-      var width = parseInt(document.getElementById("rectangle-w-"+(i+1)).value);
-      var height = parseInt(document.getElementById("rectangle-h-"+(i+1)).value);
-      if(width > 0 && height > 0)
-        rectangles.push(new Rectangle(width, height));
+    var repeatAmount = parseInt(document.getElementById("repeat-amount").value);
+    for(j=0; j<repeatAmount; j++){
+      for(i=0; i<6; i++){
+        var width = parseInt(document.getElementById("rectangle-w-"+(i+1)).value);
+        var height = parseInt(document.getElementById("rectangle-h-"+(i+1)).value);
+        if(width > 0 && height > 0)
+          rectangles.push(new Rectangle(width, height));
+      }
     }
     rectangles.sort(Rectangle.prototype.compareFunction);
 
+    var currentColorIndex = 0;
+    for(i=0; i<rectangles.length; i++){
+      if(i==0){
+        rectangles[i].color = colors[currentColorIndex]
+        currentColorIndex++;
+      } else if(rectangles[i].w == rectangles[i-1].w && rectangles[i].h == rectangles[i-1].h){
+        rectangles[i].color = rectangles[i-1].color;
+      } else {
+        rectangles[i].color = colors[currentColorIndex];
+        currentColorIndex++;
+      }
+    }
+
     // var packer = new GrowingPacker();
-    var packer = new Packer(48, 100);
+    var packer = new Packer(48, 24);
     packer.fit(rectangles);
 
     var outputCanvas = document.getElementById("output-canvas");
@@ -49,7 +65,7 @@ var calcRectApp = function(){
 
         //draw
         outputContext.beginPath();
-        outputContext.fillStyle = colors[n%colors.length];
+        outputContext.fillStyle = block.color;
         outputContext.rect(
           block.fit.x * sizeMod + 1,
           block.fit.y * sizeMod + 1,
@@ -80,13 +96,19 @@ var calcRectApp = function(){
   var Rectangle = function(width, height){
     return {
       w: width,
-      h: height
+      h: height,
+      color: ''
     };
   };
 
   Rectangle.prototype = {
     compareFunction: function(first, second){
-      return first.h - second.h;
+      //sort by height, equal height checks width
+      if(first.h != second.h)
+       return first.h - second.h;
+      else
+       return first.w - second.w;
+
     }
   };
 

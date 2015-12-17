@@ -26,7 +26,8 @@ var calcRectApp = function(){
     }
     rectangles.sort(Rectangle.prototype.compareFunction);
 
-    var packer = new GrowingPacker();
+    // var packer = new GrowingPacker();
+    var packer = new Packer(72, 36);
     packer.fit(rectangles);
 
     var outputCanvas = document.getElementById("output-canvas");
@@ -41,12 +42,17 @@ var calcRectApp = function(){
       if (block.fit) {
 
         //draw
+        outputContext.beginPath();
         outputContext.fillStyle = colors[n%colors.length];
-        outputContext.fillRect(
-          block.fit.x * sizeMod,
-          block.fit.y * sizeMod,
+        outputContext.rect(
+          block.fit.x * sizeMod + 1,
+          block.fit.y * sizeMod + 1,
           block.w * sizeMod,
           block.h * sizeMod);
+        outputContext.fill()
+        outputContext.stroke();
+        outputContext.closePath();
+
         
         //check
         if(containerHeight == null || (block.fit.x + block.h) > containerHeight)
